@@ -1,0 +1,49 @@
+/* 
+    Document   : facilities
+    Created on : May 5, 2013, 4:01:04 PM
+    Author     : macetini
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#facilitiesCont {
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/apartment/apartmentBack.png);
+}
+
+.facilities {
+    padding-top: 3px;
+    width: 750px;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    padding-left: 20px;
+    padding-right: 25px;
+    float: left;
+    text-align: justify;
+}
+
+.facilitiesTxt {
+    padding-left: 60px
+}
+
+.facilitiesInfo {
+    padding-left: 80px
+}
+
+.facilitiesSection {
+    text-decoration: underline;
+}
+
+.facilitiesTitle {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 23px;
+}
+
+#freeFac {
+    color: #a4d0f9;
+    font-weight: bold;
+}

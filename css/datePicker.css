@@ -1,0 +1,203 @@
+@CHARSET "UTF-8";
+
+#datePicker {
+    overflow: hidden;
+    width: 1025px;
+}
+
+.calendarContainer {
+    float: left;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+
+.monthLabel {
+    font-size: 12px;
+}
+
+.calendarElement {
+    display: inline-block;
+    line-height: 21px;
+    font-size: 12px;
+    font-family: Arial;
+    text-align: center;
+    background-color: #193969;
+    font-weight: bold;
+}
+
+.monthNum {
+    width: 30px;
+    margin-left: 5px;
+    text-align: right;
+}
+
+.monthName {
+    width: 100px;
+    text-align: center;
+}
+
+.price {
+    width: 50px;
+    text-align: left;
+}
+
+.day {
+    width: 21px;
+}
+
+.day:hover {
+    cursor: pointer;
+}
+
+#left {
+    width: 415px;
+    text-align: right;
+}
+
+#priceInfo {
+    width: 955px;
+    text-align: center;
+}
+
+#stats {
+    width: 955px;
+    margin-left: 130px;
+    text-align: left;
+    float: left;
+}
+
+#numberOfNights {
+    width: 200px;
+    display: inline-block;
+}
+
+#totalPriceTxt, #nonTxt {
+    font-family: Arial;
+}
+
+#reserveBtn {
+    width: 110px;
+    background-color: #193969;
+    padding: 5px;
+    border: solid 1px;
+    border-color: white;
+    display: inline-block;
+    text-align: center;
+    margin-left: 70px;
+}
+
+#reserveBtn:hover
+{
+    background-color: #A4D3EE;
+    cursor: pointer;
+}
+
+#reserveBtnCont {
+    position: relative;
+    bottom: 40px;
+    left: 250px;
+}
+
+.disabledDay {
+    filter:alpha(opacity=40);
+    -moz-opacity:0.4;
+    -khtml-opacity: 0.4;
+    opacity: 0.4;
+}
+
+#infoContainer {
+    float: left;
+    padding-left: 15px;
+}
+
+.infoElem {
+    text-align: left;
+    display: inline-block;
+}
+
+#yearSelectInfo {
+    width: 200px;
+}
+
+#spacer {
+    display: inline-block;
+    width: 50px;
+}
+
+#selectYear {
+    float: left;
+    margin-top: 10px;
+    margin-left: 60px;
+    margin-bottom: 20px;
+}
+
+.selYearElem {
+    display: inline-block;
+    padding: 1px 5px 1px 5px;
+}
+
+.selYearElem:hover {
+    background-color: #A4D3EE;
+    cursor: pointer;
+}
+
+.legendElem {
+    display: inline-block;
+    line-height: 21px;
+    width: 21px;
+    font-size: 13px;
+    font-family: Arial;
+    text-align: center;
+    font-weight: bold;
+}
+
+#legendDay {
+    background-color: #193969;
+}
+
+#legendDisabledDay {
+    filter:alpha(opacity=40);
+    -moz-opacity:0.4;
+    -khtml-opacity: 0.4;
+    opacity: 0.4;
+    background-color: #193969;
+}
+
+#legendCheckInDay {
+    background-color: #A4D3EE;
+}
+
+#legendMonth {
+    background-color: #193969;
+    width: 140px;
+}
+
+.inctiveYear {
+    background-color: #193969;  
+}
+
+.activeYear {
+    background-color: #A4D3EE;
+    border: solid 1px;
+}
+
+#loadGif {
+    position: relative;
+    bottom: 330px;
+    left: 500px;
+}
+
+.yearChangeLoading {
+    filter:alpha(opacity=30);
+    -moz-opacity:0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
+}
+
+.notLoadingImg {
+    visibility: hidden;
+}
+
+.priceInfo {
+    font-family: Arial;
+}

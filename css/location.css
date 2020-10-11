@@ -1,0 +1,61 @@
+/* 
+    Document   : location
+    Created on : May 3, 2013, 8:54:16 PM
+    Author     : macetini
+    Description:
+        Location CSS
+*/
+
+#locationCont {
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/apartment/apartmentBack.png);
+    padding: 30px;
+}
+
+
+#locationTop {
+    font-size: 25px;
+}
+
+#googleMaps {
+    border: solid white;
+    width: 400px;
+    height: 200px;
+}
+
+#location01 {
+    font-size: 18px;
+}
+
+.par {
+    padding-top: 20px;
+    width: 780px;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 25px;
+    float: left;
+    text-align: justify;
+}
+
+#mapCanvas {
+    position: absolute;
+    width: 420px;
+    height: 240px;
+    border: solid white;
+    top: -1400px;
+    left: 320px;
+    visibility: hidden;
+    opacity: 0.0;
+}
+
+#mapLink {
+    position: absolute;
+    top: -1650px;
+    left: 320px;
+    text-decoration: none;
+    visibility: hidden;
+    opacity: 0.0;
+}

@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.myButton:HOVER {
+	background-image: url(../images/system/buttonSel.png);
+}

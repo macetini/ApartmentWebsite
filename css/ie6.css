@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+body {
+	behavior: url('htc/csshover3.htc');
+}
+
+.myButton {
+	background-image: url(../images/system/button.gif);
+}
+
+.myButton {
+	background-image: url(../images/system/buttonSel.gif);
+}
+
+/*
+.myButton:HOVER {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/system/buttonSel.png',
+	sizingMethod='crop' );
+}
+*/
