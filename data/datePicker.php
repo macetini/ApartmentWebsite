@@ -1,18 +1,19 @@
 <?php
 
-include '../include/header.php';
+require_once __DIR__.'/../framework/header.php';
 
-$thisYear = $_GET['year'];
+$thisYear = htmlspecialchars($_GET['year']);
 
 $currYear = $thisYear;
+
 $smarty->assign("currYear", $currYear);
 
 $previousYear = $thisYear;
-$previousYear{3} = (String) (intval($previousYear{3}) - 1);
+$previousYear[3] = (String) (intval($previousYear[3]) - 1);
 $smarty->assign("previousYear", $previousYear);
 
 $nextYear = $thisYear;
-$nextYear{3} = (String) (intval($nextYear{3}) + 1);
+$nextYear[3] = (String) (intval($nextYear[3]) + 1);
 
 $smarty->assign("nextYear", $nextYear);
 
@@ -35,7 +36,7 @@ $smarty->assign("daysPerMounth", $daysPerMounth);
 
 $currDate = date("Ymd");
 
-$currDate{5} = (String) (intval($currDate{5}) - 1);
+$currDate[5] = (String) (intval($currDate[5]) - 1);
 
 $smarty->assign("currDate", $currDate);
 
@@ -63,7 +64,7 @@ foreach ($seasons as $season) {
     } while ($begine <= $ending);
 }
 
-$smarty->assign("addPrice", $seasons[8]['PRICE_PER_NIGHT']."€");
+$smarty->assign("addPrice", $seasons[8]['PRICE_PER_NIGHT'] . "€");
 
 $smarty->assign("pricesPerDay", $pricesPerDay);
 
@@ -79,10 +80,11 @@ foreach ($seasonsExceptOuter as $season) {
     do {
         $month = intval($begine->format('m'));
 
-        if ($begine->format('Y') == $currYear)
+        if ($begine->format('Y') == $currYear) {
             $pricePerMonth[$month - 1] = $season['PRICE_PER_NIGHT'];
-        else
+        } else {
             $pricePerMonth[12] = $season['PRICE_PER_NIGHT'];
+        }
 
         date_add($begine, date_interval_create_from_date_string('1 day'));
     } while ($begine <= $ending);
@@ -113,7 +115,7 @@ foreach ($reserved as $period) {
         date_add($arrivalDate, date_interval_create_from_date_string('1 day'));
 
         $bookedDate = $arrivalDate->format("Ymd");
-        $bookedDate{5} = (String) (intval($bookedDate{5}) - 1);
+        $bookedDate[5] = (String) (intval($bookedDate[5]) - 1);
 
         array_push($bookedDates, $bookedDate);
     }
@@ -122,4 +124,3 @@ foreach ($reserved as $period) {
 $smarty->assign("bookedDates", $bookedDates);
 
 $smarty->display('datePicker.tpl');
-?>

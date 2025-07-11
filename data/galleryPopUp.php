@@ -1,20 +1,10 @@
 <?php
 
-include '../include/header.php';
+require_once __DIR__.'/../framework/header.php';
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+$imgId = htmlspecialchars($_GET['imgId']);
 
-//print_r($_POST);
-
-$imgId = $_GET['imgId'];
-
-$img = $imgId{3}.$imgId{4};
+$img = $imgId[3].$imgId[4];
 
 $smarty->assign('img', $img);
-
 $smarty->display('galleryPopUp.tpl');
-
-?>

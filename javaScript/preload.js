@@ -130,6 +130,11 @@ function preload() {
     window.imagesLoaded = 0;
     window.loading = true;
     window.slideShowFlag = true;
+    
+    // WARNING!!
+    // I know this can and should be loops, but the original idea was to put it all 
+    // into configuration files.
+    // As the project was abandoned by the client, that logic was never implemented.
 
     //index
     window.imageFilesArr.push("images/index/indexImg0.jpg");
