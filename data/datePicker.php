@@ -4,9 +4,9 @@ require_once __DIR__.'/../framework/header.php';
 
 $thisYear = htmlspecialchars($_GET['year']);
 
-$currYear = $thisYear;
+$currentYear = $thisYear;
 
-$smarty->assign("currYear", $currYear);
+$smarty->assign("currYear", $currentYear);
 
 $previousYear = $thisYear;
 $previousYear[3] = (String) (intval($previousYear[3]) - 1);
@@ -18,29 +18,57 @@ $nextYear[3] = (String) (intval($nextYear[3]) + 1);
 $smarty->assign("nextYear", $nextYear);
 
 $daysPerMounth = array(
-    "January" => cal_days_in_month(CAL_GREGORIAN, 1, $currYear),
-    "February" => cal_days_in_month(CAL_GREGORIAN, 2, $currYear),
-    "March" => cal_days_in_month(CAL_GREGORIAN, 3, $currYear),
-    "April" => cal_days_in_month(CAL_GREGORIAN, 4, $currYear),
-    "May" => cal_days_in_month(CAL_GREGORIAN, 5, $currYear),
-    "June" => cal_days_in_month(CAL_GREGORIAN, 6, $currYear),
-    "July" => cal_days_in_month(CAL_GREGORIAN, 7, $currYear),
-    "August" => cal_days_in_month(CAL_GREGORIAN, 8, $currYear),
-    "September" => cal_days_in_month(CAL_GREGORIAN, 9, $currYear),
-    "October" => cal_days_in_month(CAL_GREGORIAN, 10, $currYear),
-    "November" => cal_days_in_month(CAL_GREGORIAN, 11, $currYear),
-    "December" => cal_days_in_month(CAL_GREGORIAN, 12, $currYear),
+    "January" => cal_days_in_month(CAL_GREGORIAN, 1, $currentYear),
+    "February" => cal_days_in_month(CAL_GREGORIAN, 2, $currentYear),
+    "March" => cal_days_in_month(CAL_GREGORIAN, 3, $currentYear),
+    "April" => cal_days_in_month(CAL_GREGORIAN, 4, $currentYear),
+    "May" => cal_days_in_month(CAL_GREGORIAN, 5, $currentYear),
+    "June" => cal_days_in_month(CAL_GREGORIAN, 6, $currentYear),
+    "July" => cal_days_in_month(CAL_GREGORIAN, 7, $currentYear),
+    "August" => cal_days_in_month(CAL_GREGORIAN, 8, $currentYear),
+    "September" => cal_days_in_month(CAL_GREGORIAN, 9, $currentYear),
+    "October" => cal_days_in_month(CAL_GREGORIAN, 10, $currentYear),
+    "November" => cal_days_in_month(CAL_GREGORIAN, 11, $currentYear),
+    "December" => cal_days_in_month(CAL_GREGORIAN, 12, $currentYear),
     "January/" . $nextYear => cal_days_in_month(CAL_GREGORIAN, 1, $nextYear));
 
 $smarty->assign("daysPerMounth", $daysPerMounth);
 
-$currDate = date("Ymd");
+$currentDate = date("Ymd");
 
-$currDate[5] = (String) (intval($currDate[5]) - 1);
+$currentDate[5] = (String) (intval($currentDate[5]) - 1);
 
-$smarty->assign("currDate", $currDate);
+$smarty->assign("currDate", $currentDate);
 
-$seasons = Db::callArg("selectAllSeasonsDates", array($currYear));
+$seasons = Db::callArg("selectAllSeasonsDates", array($currentYear));
+
+if(empty($seasons)) {
+    Db::callArg("addNewSeason", array('HSEASON1', $currentYear.'-01-01', $currentYear.'-01-04', 60, 'HIGH_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('REST1', $currentYear.'-01-05', $currentYear.'-04-30', 40, 'OUTER_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('BSEASONE', $currentYear.'-05-01', $currentYear.'-05-31', 40, 'BEGINNING_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('PSEASONE', $currentYear.'-06-01', $currentYear.'-06-30', 50, 'PRE_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('HSEASON2', $currentYear.'-07-01', $currentYear.'-08-31', 60, 'HIGH_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('HSEASON3', $currentYear.'-09-01', $currentYear.'-09-30', 50, 'HIGH_SEASON', $currentYear) );
+    Db::callArg("addNewSeason", array('ESEASON', $currentYear.'-10-01', $currentYear.'-10-31', 50, 'END_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('REST2', $currentYear.'-11-01', $currentYear.'-12-15', 40, 'OUTER_SEASON', $currentYear));
+    Db::callArg("addNewSeason", array('HSEASON4', $currentYear.'-12-16', $currentYear.'-01-04', 60, 'HIGH_SEASON', $currentYear));
+    
+    $nextYear = intval($currentYear) + 1;
+    Db::callArg("addNewSeason", array('NSEASON', $nextYear.'-01-05', $nextYear.'-01-31', 40, 'NEXT_SEASON', $currentYear));
+    
+    Db::callArg("addNewSeason", array('HSEASON1', $nextYear.'-01-01', $nextYear.'-01-04', 60, 'HIGH_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('REST1', $nextYear.'-01-05', $nextYear.'-04-30', 40, 'OUTER_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('BSEASONE', $nextYear.'-05-01', $nextYear.'-05-31', 40, 'BEGINNING_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('PSEASONE', $nextYear.'-06-01', $nextYear.'-06-30', 50, 'PRE_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('HSEASON2', $nextYear.'-07-01', $nextYear.'-08-31', 60, 'HIGH_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('HSEASON3', $nextYear.'-09-01', $nextYear.'-09-30', 50, 'HIGH_SEASON', $nextYear) );
+    Db::callArg("addNewSeason", array('ESEASON', $nextYear.'-10-01', $nextYear.'-10-31', 50, 'END_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('REST2', $nextYear.'-11-01', $nextYear.'-12-15', 40, 'OUTER_SEASON', $nextYear));
+    Db::callArg("addNewSeason", array('HSEASON4', $nextYear.'-12-16', $nextYear.'-01-04', 60, 'HIGH_SEASON', $nextYear));
+    
+    $afterNextYear = intval($nextYear) + 1;
+    Db::callArg("addNewSeason", array('NSEASON', $afterNextYear.'-01-05', $afterNextYear.'-01-31', 40, 'NEXT_SEASON', $nextYear));
+}
 
 $pricesPerDay = Array();
 
@@ -70,7 +98,7 @@ $smarty->assign("pricesPerDay", $pricesPerDay);
 
 $pricePerMonth = Array();
 
-$seasonsExceptOuter = Db::callArg("selectExeceptOuterSeasons", array($currYear));
+$seasonsExceptOuter = Db::callArg("selectExeceptOuterSeasons", array($currentYear));
 
 foreach ($seasonsExceptOuter as $season) {
 
@@ -80,7 +108,7 @@ foreach ($seasonsExceptOuter as $season) {
     do {
         $month = intval($begine->format('m'));
 
-        if ($begine->format('Y') == $currYear) {
+        if ($begine->format('Y') == $currentYear) {
             $pricePerMonth[$month - 1] = $season['PRICE_PER_NIGHT'];
         } else {
             $pricePerMonth[12] = $season['PRICE_PER_NIGHT'];
