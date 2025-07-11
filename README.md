@@ -6,6 +6,6 @@ Description:
 
 PHP + DHTML + SMARTY project. Originally part of a much greater CMS. Unfortunately, the client abandoned the project.
 
-The online version can be found here:
+The online demo can be found at the URL below. WARNING! The demo is using a free hosting service and does not have an SSL certificate.
 
 http://apartmentdanica.atwebpages.com/
