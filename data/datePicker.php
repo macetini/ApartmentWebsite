@@ -2,17 +2,15 @@
 
 require_once __DIR__.'/../framework/header.php';
 
-$thisYear = htmlspecialchars($_GET['year']);
-
-$currentYear = $thisYear;
+$currentYear = htmlspecialchars($_GET['year']);
 
 $smarty->assign("currYear", $currentYear);
 
-$previousYear = $thisYear;
+$previousYear = $currentYear;
 $previousYear[3] = (String) (intval($previousYear[3]) - 1);
 $smarty->assign("previousYear", $previousYear);
 
-$nextYear = $thisYear;
+$nextYear = $currentYear;
 $nextYear[3] = (String) (intval($nextYear[3]) + 1);
 
 $smarty->assign("nextYear", $nextYear);
@@ -53,6 +51,7 @@ if(empty($seasons)) {
     Db::callArg("addNewSeason", array('REST2', $currentYear.'-11-01', $currentYear.'-12-15', 40, 'OUTER_SEASON', $currentYear));
     Db::callArg("addNewSeason", array('HSEASON4', $currentYear.'-12-16', $currentYear.'-01-04', 60, 'HIGH_SEASON', $currentYear));
     
+    //TODO - CHECK!
     $nextYear = intval($currentYear) + 1;
     Db::callArg("addNewSeason", array('NSEASON', $nextYear.'-01-05', $nextYear.'-01-31', 40, 'NEXT_SEASON', $currentYear));
     
