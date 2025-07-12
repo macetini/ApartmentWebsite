@@ -2,8 +2,9 @@
 
 Description:
 PHP + DHTML + SMARTY project. Originally part of a much greater CMS. Unfortunately, the client abandoned the project.
+EDIT: "Project updated to PHP version 8.3"
 
-The online demo can be found at the URL below. 
+The online demo can be accessed at the following URL. 
 WARNING! The demo is using a free hosting service and does not have an SSL certificate.
 
 http://apartmentdanica.atwebpages.com/
