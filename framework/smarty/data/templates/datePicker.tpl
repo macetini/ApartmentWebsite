@@ -11,21 +11,21 @@
 
     <div id="selectYear">
 
-        <span class="selYearElem {if $currYear eq $smarty.now|date_format:'%Y'}activeYear{else}inctiveYear{/if}" id="thisYear">
-            {if $currYear eq $smarty.now|date_format:'%Y'}
-                {$currYear}
+        <span class="selYearElem {if $currentYear eq $smarty.now|date_format:'%Y'}activeYear{else}inctiveYear{/if}" id="thisYear">
+            {if $currentYear eq $smarty.now|date_format:'%Y'}
+                {$currentYear}
             {else}
                 {$previousYear}
             {/if}
         </span>&nbsp;
-        <span class="selYearElem {if $currYear neq $smarty.now|date_format:'%Y'}activeYear{else}inctiveYear{/if}" id="nextYear">
-            {if $currYear eq $smarty.now|date_format:'%Y'}
+        <span class="selYearElem {if $currentYear neq $smarty.now|date_format:'%Y'}activeYear{else}inctiveYear{/if}" id="nextYear">
+            {if $currentYear eq $smarty.now|date_format:'%Y'}
                 {$nextYear}
             {else}
-                {$currYear}
+                {$currentYear}
             {/if}
         </span>
-
+        
         <span id="spacer" />
 
         <span id="legendDay" class="legendElem">1</span>
@@ -47,66 +47,63 @@
         <span id="ppnInfo"></span>
 
     </div>
+        
+     <div>
+        
+        {foreach from=$yearTimeStamps name=months key=monthKey item=monthTimeStamps}
 
-    <div id="datePicker">
-
-        {foreach from=$daysPerMounth name=feach item=dpm key=month}
-
-            <div id="left" class="calendarContainer">
-                {section name=dpm start=0 max=$dpm/2|ceil loop=$dpm step=1}
-
-                    {assign var="dayId" value=$smarty.section.dpm.index+1|string_format:'%02d'}
-                    {assign var="monthId" value=$smarty.foreach.feach.index|string_format:'%02d'}
-
-                    {if $smarty.foreach.feach.index neq 12}
-                        {assign var="dateId" value=$currYear|cat:$monthId|cat:$dayId}
-                    {else}
-                        {assign var="dateId" value=$nextYear|cat:"00"|cat:$dayId}
-                    {/if}
-
-                    <span id="{$dateId}" class="day calendarElement {if $currDate > $dateId || $dateId|in_array:$bookedDates}disabledDay{/if}">{$smarty.section.dpm.index+1}</span>
+            <div id="left" class="calendarContainer">                
+                {section name=leftDayTimeStamps loop=$monthTimeStamps start=0 max=$monthTimeStamps|count/2|ceil step=1}
+                    {assign var="dayTimeStamp" value=$monthTimeStamps[$smarty.section.leftDayTimeStamps.index]}
+                    <span id="{$dayTimeStamp}" 
+                          class="day calendarElement
+                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledDay{/if}">
+                        {$smarty.section.leftDayTimeStamps.index+1}
+                    </span>
                 {/section}
             </div>
-
-            <div class="calendarContainer calendarElement monthNum {if $smarty.foreach.feach.index+1 < $smarty.now|date_format:"%m" and $currYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}" id="monthNumb{$smarty.foreach.feach.index}">
-                <span class="monthLabel" id="monthNumbSpan{$smarty.foreach.feach.index}">
-                    {if $smarty.foreach.feach.index < 12}
-                        {$smarty.foreach.feach.index+1} - 
+            
+            <div class="calendarContainer calendarElement monthNum
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 id="monthNumb{$smarty.foreach.months.index}">
+                <span class="monthLabel" id="monthNumbSpan{$smarty.foreach.months.index}">
+                    {if $smarty.foreach.months.index <= 12}
+                        {$smarty.foreach.months.index} - 
                     {else}
-                        1 -
+                            1 -
                     {/if}
                 </span>
             </div>
-
-            <div class="calendarContainer calendarElement monthName {if $smarty.foreach.feach.index+1 < $smarty.now|date_format:"%m" and $currYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}" id="monthName{$smarty.foreach.feach.index}">
-                <span class="monthLabel" id="monthNameSpan{$smarty.foreach.feach.index}">{$month}</span>
+                
+            <div class="calendarContainer calendarElement monthName
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 id="monthName{$smarty.foreach.months.index}">
+                <span class="monthLabel" id="monthNameSpan{$smarty.foreach.months.index}"></span>
             </div>
 
-            <div class="calendarContainer calendarElement price {if $smarty.foreach.feach.index+1 < $smarty.now|date_format:"%m" and $currYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}" id="price{$smarty.foreach.feach.index}">
-                <span class="monthLabel" id="priceSpan{$smarty.foreach.feach.index}"> - {$pricePerMonth[$smarty.foreach.feach.index]} €</span>
+            <div class="calendarContainer calendarElement price
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 id="price{$smarty.foreach.months.index}">
+                <span class="monthLabel" id="priceSpan{$smarty.foreach.months.index}"> - {$pricePerMonth[$smarty.foreach.months.index]} €</span>
             </div>
-
+            
             <div class="calendarContainer">
-                {section name=dpm2 start=$smarty.section.dpm.index loop=$dpm step=1}
-
-                    {assign var="dayId" value=$smarty.section.dpm2.index+1|string_format:'%02d'}
-                    {assign var="monthId" value=$smarty.foreach.feach.index|string_format:'%02d'}
-
-                    {if $smarty.foreach.feach.index neq 12}
-                        {assign var="dateId" value=$currYear|cat:$monthId|cat:$dayId}
-                    {else}
-                        {assign var="dateId" value=$nextYear|cat:"00"|cat:$dayId}
-                    {/if}
-
-                    <span id="{$dateId}" class="day calendarElement {if $currDate > $dateId || $dateId|in_array:$bookedDates}disabledDay{/if}">{$smarty.section.dpm2.index+1}</span>
+                {assign var="startIndex" value=$monthTimeStamps|count/2|ceil}
+                {section name=rightDayTimeStamps loop=$monthTimeStamps start=$startIndex step=1}
+                    {assign var="dayTimeStamp" value=$monthTimeStamps[$smarty.section.rightDayTimeStamps.index]}
+                    <span id="{$dayTimeStamp}"
+                          class="day calendarElement
+                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledDay{/if}">
+                        {$smarty.section.rightDayTimeStamps.index+1}
+                    </span>
                 {/section}
             </div>
-
+            
         {/foreach}
-
+    
     </div>
-
-    {foreach from=$pricesPerDay item=price}
+        
+        {foreach from=$pricesPerDay item=price}
 
         <input type="hidden" value="{$price[1]}" id="price{$price[0]}" />
 
@@ -115,11 +112,11 @@
     <div id="priceInfo">
         <br />
         <span>
-            <span class="priceInfo" id="priceInfoP1"></span>{$currYear} 
-            <span class="priceInfo" id="priceInfoP2"></span>{$currYear}
-            <span class="priceInfo" id="priceInfoP3"></span>{$currYear}
-            <span class="priceInfo" id="priceInfoP4"></span>{$nextYear}
-            <span class="priceInfo" id="priceInfoP5"></span> {$addPrice}
+            <span class="priceInfo" id="priceInfoP1"></span>{$currentYear} 
+            <span class="priceInfo" id="priceInfoP2"></span>{$currentYear}
+            <span class="priceInfo" id="priceInfoP3"></span>{$currentYear}
+            <span class="priceInfo" id="priceInfoP4"></span>{$currentYear}
+            <span class="priceInfo" id="priceInfoP5"></span> {$currentYear}
             <span class="priceInfo" id="priceInfoP6"></span>
         </span>
     </div>
@@ -139,5 +136,5 @@
     </div>
 
     <img src="images/system/ajax-loader.gif" id="loadGif" class="notLoadingImg" />
-
+        
 </div>

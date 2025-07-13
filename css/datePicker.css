@@ -3,6 +3,7 @@
 #datePicker {
     overflow: hidden;
     width: 1025px;
+    margin-left: -20px;
 }
 
 .calendarContainer {
@@ -57,6 +58,7 @@
 #priceInfo {
     width: 955px;
     text-align: center;
+    padding-left: 50px;
 }
 
 #stats {
@@ -107,7 +109,7 @@
 
 #infoContainer {
     float: left;
-    padding-left: 15px;
+    padding-left: 50px;
 }
 
 .infoElem {
@@ -116,7 +118,7 @@
 }
 
 #yearSelectInfo {
-    width: 200px;
+    width: 160px;
 }
 
 #spacer {

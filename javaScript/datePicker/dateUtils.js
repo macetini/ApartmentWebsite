@@ -22,7 +22,9 @@ function setDateActive(dayId)
         $("#" + dayId).css("background-color", window.RED_COLOR);
     }
     else
+    {
         $("#" + dayId).css("background-color", window.LIGHT_SKY_BLUE_COLOR);
+    }
         
     $("#" + dayId).css("color", window.DARK_BLUE_COLOR);
 }
@@ -35,14 +37,10 @@ function setDateOneOfActive(dayId)
 
 function convertDateStrToDateObj(dateStr)
 {
-    var dateStrArr = new Array(3);
-    
+    var dateStrArr = new Array(3);    
     dateStrArr[0] =  dateStr.substring(0, 4);
-
-    dateStrArr[1] = dateStr.substring(4, 6);
-    
-    dateStrArr[2] = dateStr.substring(6, 8);
-        
+    dateStrArr[1] = dateStr.substring(4, 6);   
+    dateStrArr[2] = dateStr.substring(6, 8);        
     var date = new Date(dateStrArr[0], dateStrArr[1], dateStrArr[2]);
     
     return date;

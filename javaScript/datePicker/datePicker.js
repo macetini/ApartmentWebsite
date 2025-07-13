@@ -7,8 +7,6 @@
  */
 
 // 0 - look
-// 1 - choose start
-
 window.mode = 0;
 
 window.startDate = undefined;
@@ -63,7 +61,7 @@ function calendarLoaded() {
     setInitMode();
 }
 
-$('#thisYear').live("click", function() {
+$('#thisYear').live("click", function () {
 
     if ($(this).hasClass('activeYear') || $('#mainWindow').hasClass('yearChangeLoading') || window.popUp)
         return;
@@ -81,7 +79,7 @@ $('#thisYear').live("click", function() {
     callAjaxLoad('data/datePicker.php', '#mainWindow', data, null, calendarLoaded);
 });
 
-$('#nextYear').live("click", function() {
+$('#nextYear').live("click", function () {
 
     if ($(this).hasClass('activeYear') || $('#mainWindow').hasClass('yearChangeLoading') || window.popUp)
         return;
@@ -103,27 +101,27 @@ function markMonthAndPriceActive()
 {
     var centerElems = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    var currYear = Number($('.activeYear').text());
+    var selectedYear = parseInt($('.activeYear').text());
 
-    var i;
-    var monthNumb;
-    var yearNumb;
-
-    for (i = 0; i < window.currentDates.length; i++)
+    for (var i = 0; i < window.currentDates.length; i++)
     {
-        monthNumb = Number((window.currentDates[i]).substring(4, 6));
+        var currentDateId = window.currentDates[i];
+        
+        var currentDateTimeStamp = currentDateId * 1000;
+        var currentDate = new Date(currentDateTimeStamp);
 
-        yearNumb = Number((window.currentDates[i]).substring(0, 4));
+        var month = parseInt(currentDate.getMonth());//Number((window.currentDates[i]).substring(4, 6));
+        var year = parseInt(currentDate.getFullYear());//Number((window.currentDates[i]).substring(0, 4));
 
-        if (yearNumb === currYear)
+        if (year === selectedYear)
         {
-            if ($("#" + window.currentDates[i]).hasClass('disabledDay'))
-                centerElems[monthNumb] = 2;
-            else
-            if (centerElems[monthNumb] !== 2)
-                centerElems[monthNumb] = 1;
+            if ($("#" + currentDateId).hasClass('disabledDay')) {
+                centerElems[month] = 2;
+            } else if (centerElems[month] !== 2) {
+                centerElems[month] = 1;
+            }
         } else {
-            if ($("#" + window.currentDates[i]).hasClass('disabledDay'))
+            if ($("#" + currentDateId).hasClass('disabledDay'))
                 centerElems[12] = 2;
             else
             if (centerElems[12] !== 2)
@@ -163,14 +161,12 @@ function markMonthAndPriceActive()
     }
 }
 
-function markAllDaysBetweenTwoDates(startDateStr, endDateStr, bgColor, color) {
-
-    var endDate = convertDateStrToDateObj(endDateStr);
-    var startDate = convertDateStrToDateObj(startDateStr);
+function markAllDaysBetweenTwoDates(startTimeStampId, endTimeStampId, bgColor, color) {
+    var startDate = new Date(parseInt(startTimeStampId) * 1000);//convertDateStrToDateObj(startDateId);        
+    var endDate = new Date(parseInt(endTimeStampId) * 1000);//convertDateStrToDateObj(endDateId);    
 
     if (bgColor === undefined)
         bgColor = window.WHITE_COLOR;
-
     if (color === undefined)
         color = window.DARK_BLUE_COLOR;
 
@@ -178,14 +174,13 @@ function markAllDaysBetweenTwoDates(startDateStr, endDateStr, bgColor, color) {
 
     if (startDate >= endDate)
     {
-        setDateOneOfActive(startDateStr);
-
-        newCurrentDates.push(startDateStr);
+        setDateOneOfActive(startDate);
+        newCurrentDates.push(startDate);
 
         return newCurrentDates;
     }
 
-    newCurrentDates.push(startDateStr);
+    newCurrentDates.push(startDate);
 
     var numOfDaysCount = 0;
 
@@ -204,8 +199,7 @@ function markAllDaysBetweenTwoDates(startDateStr, endDateStr, bgColor, color) {
 
                 $("#" + helperDateStr).css("opacity", 0.7);
                 $("#" + helperDateStr).css("background-color", window.RED_COLOR);
-            }
-            else
+            } else
                 $("#" + helperDateStr).css("background-color", bgColor);
 
             $("#" + helperDateStr).css("color", color);
@@ -244,10 +238,11 @@ function clearAllDates()
     } while (startDate <= endDate);
 }
 
-$(".day").live("mouseover", function() {
+$(".day").live("mouseover", function () {
 
-    if ($('#mainWindow').hasClass('yearChangeLoading') || window.popUp)
+    if ($('#mainWindow').hasClass('yearChangeLoading') || window.popUp) {
         return;
+    }
 
     if (window.mode === 0)
     {
@@ -281,7 +276,7 @@ $(".day").live("mouseover", function() {
     }
 });
 
-$(".day").live("mouseleave", function() {
+$(".day").live("mouseleave", function () {
 
     if ($('#mainWindow').hasClass('yearChangeLoading') || window.popUp)
         return;
@@ -306,25 +301,29 @@ $(".day").live("mouseleave", function() {
     }
 });
 
-$(".day").live("click", function() {
+$(".day").live("click", function () {
 
-    if ($(this).hasClass('disabledDay') || $('#mainWindow').hasClass('yearChangeLoading') || window.popUp)
+    if ($(this).hasClass('disabledDay') || $('#mainWindow').hasClass('yearChangeLoading') || window.popUp) {
         return;
+    }
 
-    if (window.mode === 0 || convertDateStrToDateObj(window.startDate) > convertDateStrToDateObj(this.id))
+    var clickedId = parseInt(this.id);
+
+    if (window.mode === 0 || window.startDate > clickedId)//convertDateStrToDateObj(window.startDate) > convertDateStrToDateObj(this.id))
     {
         window.mode = 1;
 
-        clearAllDates();
-
-        window.endDate = undefined;
-        window.startDate = this.id;
+        //clearAllDates();
 
         window.invalidDate = false;
 
         window.currentDates = new Array;
-        window.currentDates.push(window.startDate);
-        calculateStats(window.currentDates);
+        window.currentDates.push(clickedId);
+
+        window.endDate = undefined;
+        window.startDate = clickedId;
+
+        //calculateStats(window.currentDates);
 
     } else {
         if (this.id === window.startDate)
@@ -357,15 +356,15 @@ $(".day").live("click", function() {
     }
 
     markMonthAndPriceActive();
-    setDateActive(this.id);
+    setDateActive(clickedId);
 });
 
-$('#reserveBtn').live('click', function() {
+$('#reserveBtn').live('click', function () {
 
     if ($(this).hasClass('disabledDay'))
         return;
 
-    $.get("data/reservePopUp.php", function(data) {
+    $.get("data/reservePopUp.php", function (data) {
 
         $('#datePicker').append('<div> </div>');
 
