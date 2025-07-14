@@ -10,4 +10,4 @@ WARNING! The demo is using a free hosting service and does not have an SSL certi
 
 http://apartmentdanica.atwebpages.com/
 
-<img width="1208" height="782" alt="res" src="https://github.com/user-attachments/assets/fd610653-c4a6-454f-887b-ee61b4b2caf3" />
+<img width="1214" height="806" alt="Untitled" src="https://github.com/user-attachments/assets/abece81e-dc34-4eb0-a96a-6a3cec08b89e" />
