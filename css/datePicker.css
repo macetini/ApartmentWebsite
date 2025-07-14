@@ -44,10 +44,13 @@
 
 .day {
     width: 21px;
+    transition: all .3s ease;
 }
 
 .day:hover {
-    cursor: pointer;
+    cursor: default;    
+    opacity: 0.9;
+    transition: opacity .3s;
 }
 
 #left {
@@ -56,9 +59,9 @@
 }
 
 #priceInfo {
-    width: 955px;
+    width:600px;
     text-align: center;
-    padding-left: 50px;
+    padding-left: 230px;
 }
 
 #stats {
@@ -100,7 +103,7 @@
     left: 250px;
 }
 
-.disabledDay {
+.disabledElement {
     filter:alpha(opacity=40);
     -moz-opacity:0.4;
     -khtml-opacity: 0.4;
@@ -175,7 +178,7 @@
 }
 
 .inctiveYear {
-    background-color: #193969;  
+    background-color: #193969;
 }
 
 .activeYear {

@@ -5,7 +5,7 @@ require_once __DIR__ . '/../framework/header.php';
 $currentYear = date('Y');
 echo "Checking season data from a year: ".$currentYear."<br>\n";
 
-$seasons = Db::callArg("selectAllSeasonsDates", array($currentYear));
+$seasons = Db::callArg("selectAllSeasons", array($currentYear));
 
 if (empty($seasons)) {
     echo "<br>\nNo season data found, adding new data for the next 100 years:<br>\n";
@@ -22,9 +22,9 @@ if (empty($seasons)) {
         Db::callArg("addNewSeason", array('HSEASON3', $year . '-09-01', $year . '-09-30', 50, 'HIGH_SEASON', $year));
         Db::callArg("addNewSeason", array('ESEASON', $year . '-10-01', $year . '-10-31', 50, 'END_SEASON', $year));
         Db::callArg("addNewSeason", array('REST2', $year . '-11-01', $year . '-12-15', 40, 'OUTER_SEASON', $year));
-        Db::callArg("addNewSeason", array('HSEASON4', $year . '-12-16', $year . '-01-04', 60, 'HIGH_SEASON', $year));
         
         $nextYear = intval($year) + 1;
+        Db::callArg("addNewSeason", array('HSEASON4', $year . '-12-16', $nextYear . '-01-04', 60, 'HIGH_SEASON', $year));                
         Db::callArg("addNewSeason", array('NSEASON', $nextYear . '-01-05', $nextYear . '-01-31', 40, 'NEXT_SEASON', $year));
         
         echo " - OK<br>\n";

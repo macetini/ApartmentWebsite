@@ -25,7 +25,7 @@
                 {$currentYear}
             {/if}
         </span>
-        
+
         <span id="spacer" />
 
         <span id="legendDay" class="legendElem">1</span>
@@ -47,9 +47,9 @@
         <span id="ppnInfo"></span>
 
     </div>
-        
-     <div>
-        
+
+    <div>
+
         {foreach from=$yearTimeStamps name=months key=monthKey item=monthTimeStamps}
 
             <div id="left" class="calendarContainer">                
@@ -57,58 +57,57 @@
                     {assign var="dayTimeStamp" value=$monthTimeStamps[$smarty.section.leftDayTimeStamps.index]}
                     <span id="{$dayTimeStamp}" 
                           class="day calendarElement
-                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledDay{/if}">
+                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledElement{/if}">
                         {$smarty.section.leftDayTimeStamps.index+1}
                     </span>
                 {/section}
             </div>
-            
+
             <div class="calendarContainer calendarElement monthNum
-                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledElement{/if}"
                  id="monthNumb{$smarty.foreach.months.index}">
                 <span class="monthLabel" id="monthNumbSpan{$smarty.foreach.months.index}">
-                    {if $smarty.foreach.months.index <= 12}
-                        {$smarty.foreach.months.index} - 
+                    {if $smarty.foreach.months.index < 12}
+                        {$smarty.foreach.months.index + 1} - 
                     {else}
-                            1 -
+                        1 -
                     {/if}
                 </span>
             </div>
-                
+
             <div class="calendarContainer calendarElement monthName
-                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledElement{/if}"
                  id="monthName{$smarty.foreach.months.index}">
                 <span class="monthLabel" id="monthNameSpan{$smarty.foreach.months.index}"></span>
             </div>
 
             <div class="calendarContainer calendarElement price
-                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledDay{/if}"
+                 {if $smarty.foreach.months.index+1 < $smarty.now|date_format:"%m" and $currentYear eq $smarty.now|date_format:'%Y'}disabledElement{/if}"
                  id="price{$smarty.foreach.months.index}">
                 <span class="monthLabel" id="priceSpan{$smarty.foreach.months.index}"> - {$pricePerMonth[$smarty.foreach.months.index]} €</span>
             </div>
-            
+
             <div class="calendarContainer">
                 {assign var="startIndex" value=$monthTimeStamps|count/2|ceil}
                 {section name=rightDayTimeStamps loop=$monthTimeStamps start=$startIndex step=1}
                     {assign var="dayTimeStamp" value=$monthTimeStamps[$smarty.section.rightDayTimeStamps.index]}
                     <span id="{$dayTimeStamp}"
                           class="day calendarElement
-                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledDay{/if}">
+                          {if $smarty.now > $dayTimeStamp || $dayTimeStamp|in_array:$bookedDates}disabledElement{/if}">
                         {$smarty.section.rightDayTimeStamps.index+1}
                     </span>
                 {/section}
             </div>
-            
-        {/foreach}
-    
+
+        {/foreach}   
     </div>
-        
+    
+    <div>
         {foreach from=$pricesPerDay item=price}
-
-        <input type="hidden" value="{$price[1]}" id="price{$price[0]}" />
-
-    {/foreach}
-
+            <input type="hidden" value="{$price[1]}" id="price_{$price[0]}" />
+        {/foreach}
+    </div>  
+    
     <div id="priceInfo">
         <br />
         <span>
@@ -132,9 +131,9 @@
     </div>
 
     <div id="reserveBtnCont">
-        <span id="reserveBtn" class="disabledDay"></span>
+        <span id="reserveBtn" class="disabledElement"></span>
     </div>
 
     <img src="images/system/ajax-loader.gif" id="loadGif" class="notLoadingImg" />
-        
+
 </div>
