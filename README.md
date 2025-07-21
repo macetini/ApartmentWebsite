@@ -1,7 +1,8 @@
 # Danica-Apartment-Website
 
 Description:
-PHP + DHTML + SMARTY project. Originally part of a much greater CMS. Unfortunately, the client abandoned the project.
+PHP + DHTML + SMARTY freelancing project I worked on in 2012. <br />
+Originally part of a much greater CMS. Unfortunately, the client abandoned the project.
 
 EDIT: "Project updated to PHP version 8.3 and MariaDB"
 
