@@ -6,7 +6,7 @@ PHP + DHTML + SMARTY project. Originally part of a much greater CMS. Unfortunate
 EDIT: "Project updated to PHP version 8.3 and MariaDB"
 
 The online demo can be accessed at the following URL. <br/>
-Using a free hosting service and does not have an SSL certificate.
+Using a free hosting service that does not have an SSL certificate.
 
 http://apartmentdanica.atwebpages.com/
 
